@@ -335,7 +335,8 @@ a {
 .footer-rural {
     background: #172119;
     color: #fff;
-    margin-top: 5rem;
+    margin-top: auto;
+    flex-shrink: 0;
 }
 
 .footer-rural small {

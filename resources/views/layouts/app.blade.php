@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('css/ruraliza.css') }}">
 </head>
 
-<body>
+<body class="min-vh-100 d-flex flex-column">
 
 
 <nav class="navbar navbar-expand-lg site-navbar sticky-top">
@@ -104,7 +104,7 @@
     </div>
 </nav>
 
-<main class="py-4">
+<main class="py-4 flex-grow-1">
     <div class="container">
         @if(session('success'))
             <div class="alert alert-success rounded-4 shadow-sm border-0">
