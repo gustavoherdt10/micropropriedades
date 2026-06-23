@@ -7,6 +7,8 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="icon" href="{{ asset('img/favicon.png') }}" type="image/png">
+
     <link 
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
         rel="stylesheet"
@@ -17,21 +19,6 @@
 
 <body>
 
-<div class="rural-topbar">
-    <div class="rural-topbar-track">
-        <span>Produtos coloniais direto do produtor</span>
-        <span>Artesanato rural e regional</span>
-        <span>Turismo rural em Ituporanga e região</span>
-        <span>Flores, mudas, alimentos e serviços locais</span>
-        <span>Valorizando quem produz no campo</span>
-
-        <span>Produtos coloniais direto do produtor</span>
-        <span>Artesanato rural e regional</span>
-        <span>Turismo rural em Ituporanga e região</span>
-        <span>Flores, mudas, alimentos e serviços locais</span>
-        <span>Valorizando quem produz no campo</span>
-    </div>
-</div>
 
 <nav class="navbar navbar-expand-lg site-navbar sticky-top">
     <div class="container">

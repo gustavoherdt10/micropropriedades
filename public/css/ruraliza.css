@@ -21,35 +21,6 @@ a {
     text-decoration: none;
 }
 
-.rural-topbar {
-    background: #111;
-    color: #fff;
-    font-size: 0.83rem;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.rural-topbar-track {
-    display: inline-block;
-    padding: 0.55rem 0;
-    animation: ruralTicker 32s linear infinite;
-}
-
-.rural-topbar span {
-    margin-right: 2rem;
-    color: #f1f1f1;
-}
-
-@keyframes ruralTicker {
-    from {
-        transform: translateX(0);
-    }
-
-    to {
-        transform: translateX(-50%);
-    }
-}
-
 .site-navbar {
     background: rgba(255, 255, 255, 0.94);
     backdrop-filter: blur(10px);
@@ -403,9 +374,6 @@ a {
 }
 
 @media (max-width: 767.98px) {
-    .rural-topbar {
-        font-size: 0.75rem;
-    }
 
     .hero-rural {
         text-align: center;
