@@ -60,22 +60,25 @@
                     </select>
                 </div>
 
-                <div class="col-md-3 mb-3">
-                    <label class="form-label">Categoria</label>
-                    <select name="categoria_id" class="form-select">
-                        <option value="">Sem categoria</option>
+                <div class="col-md-6 mb-3">
+                    <label for="categoria_id" class="form-label">Categoria</label>
 
-                        @foreach($categorias as $categoria)
-                            <option 
-                                value="{{ $categoria->id }}"
-                                {{ old('categoria_id') == $categoria->id ? 'selected' : '' }}
-                            >
-                                {{ $categoria->nome }}
-                            </option>
-                        @endforeach
-                    </select>
+                        <select name="categoria_id" id="categoria_id" class="form-select" required>
+                        <option value="">Selecione uma categoria</option>
+
+                    @foreach ($categorias as $categoria)
+                        <option value="{{ $categoria->id }}" {{ old('categoria_id') == $categoria->id ? 'selected' : '' }}>
+                         {{ $categoria->nome }}
+                        </option>
+                    @endforeach
+                        </select>
+
+                    @error('categoria_id')
+                    <div class="text-danger small mt-1">
+                    {{ $message }}
                 </div>
-            </div>
+                    @enderror
+                </div>
 
             <div class="mb-3">
                 <label class="form-label">Nome do produto ou serviço</label>
