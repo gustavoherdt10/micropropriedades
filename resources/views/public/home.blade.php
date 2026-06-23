@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Início - Ruraliza Ituporanga')
+@section('title', 'Início - Ruraliza Alto Vale')
 
 @section('content')
 <section 
