@@ -16,89 +16,83 @@
 @endphp
 
 <div class="mb-4">
-    <a href="{{ route('public.propriedades') }}" class="btn btn-outline-secondary btn-sm">
+    <a href="{{ route('public.propriedades') }}" class="btn btn-outline-secondary rounded-pill btn-sm">
         Voltar para propriedades
     </a>
 </div>
 
-<div class="row">
-    <div class="col-md-5 mb-4">
-        <div class="card shadow-sm">
+<div class="row align-items-start">
+    <div class="col-lg-5 mb-4">
+        <div class="rural-card">
             @if($propriedade->imagem)
                 <img 
                     src="{{ asset('storage/' . $propriedade->imagem) }}" 
-                    class="card-img-top"
-                    style="height: 340px; object-fit: cover;"
+                    class="w-100"
+                    style="height: 390px; object-fit: cover;"
                     alt="{{ $propriedade->nome }}"
                 >
             @else
-                <div 
-                    class="bg-secondary-subtle d-flex align-items-center justify-content-center text-muted"
-                    style="height: 340px;"
-                >
+                <div class="rural-card-placeholder" style="height: 390px;">
                     Sem imagem
                 </div>
             @endif
-
-            <div class="card-body">
-                <h1 class="h3">{{ $propriedade->nome }}</h1>
-
-                <p class="text-muted mb-1">
-                    {{ $propriedade->cidade }}
-                    @if($propriedade->bairro)
-                        - {{ $propriedade->bairro }}
-                    @endif
-                </p>
-
-                @if($propriedade->endereco)
-                    <p class="mb-1">
-                        <strong>Endereço:</strong> {{ $propriedade->endereco }}
-                    </p>
-                @endif
-
-                <p class="mb-1">
-                    <strong>Responsável:</strong> {{ $propriedade->responsavel }}
-                </p>
-            </div>
         </div>
     </div>
 
-    <div class="col-md-7 mb-4">
-        <div class="card shadow-sm mb-4">
-            <div class="card-header bg-success text-white">
-                Sobre a propriedade
-            </div>
+    <div class="col-lg-7 mb-4">
+        <span class="badge-rural mb-3 d-inline-block">
+            {{ $propriedade->cidade }}
+            @if($propriedade->bairro)
+                - {{ $propriedade->bairro }}
+            @endif
+        </span>
 
-            <div class="card-body">
-                <p class="mb-0">
-                    {{ $propriedade->descricao ?? 'Nenhuma descrição cadastrada.' }}
-                </p>
-            </div>
-        </div>
+        <h1 class="page-title mb-3">
+            {{ $propriedade->nome }}
+        </h1>
 
-        <div class="card shadow-sm">
-            <div class="card-header bg-success text-white">
-                Contato
-            </div>
+        <p class="page-subtitle mb-4">
+            {{ $propriedade->descricao ?? 'Nenhuma descrição cadastrada.' }}
+        </p>
 
-            <div class="card-body">
-                <p>
-                    <strong>Telefone:</strong> {{ $propriedade->telefone ?? 'Não informado' }}
-                </p>
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+            <div class="card-body p-4">
+                <h5 class="fw-bold mb-3">
+                    Informações da propriedade
+                </h5>
 
-                <p>
-                    <strong>WhatsApp:</strong> {{ $propriedade->whatsapp ?? 'Não informado' }}
-                </p>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <small class="text-muted d-block">Responsável</small>
+                        <strong>{{ $propriedade->responsavel }}</strong>
+                    </div>
 
-                <p>
-                    <strong>E-mail:</strong> {{ $propriedade->email ?? 'Não informado' }}
-                </p>
+                    <div class="col-md-6 mb-3">
+                        <small class="text-muted d-block">Endereço</small>
+                        <strong>{{ $propriedade->endereco ?? 'Não informado' }}</strong>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <small class="text-muted d-block">Telefone</small>
+                        <strong>{{ $propriedade->telefone ?? 'Não informado' }}</strong>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <small class="text-muted d-block">WhatsApp</small>
+                        <strong>{{ $propriedade->whatsapp ?? 'Não informado' }}</strong>
+                    </div>
+
+                    <div class="col-md-12">
+                        <small class="text-muted d-block">E-mail</small>
+                        <strong>{{ $propriedade->email ?? 'Não informado' }}</strong>
+                    </div>
+                </div>
 
                 @if($numeroWhatsapp)
                     <a 
                         href="https://wa.me/{{ $numeroWhatsapp }}" 
                         target="_blank" 
-                        class="btn btn-success"
+                        class="btn btn-rural mt-4"
                     >
                         Chamar no WhatsApp
                     </a>
@@ -108,49 +102,58 @@
     </div>
 </div>
 
-<div class="mt-4">
-    <h2 class="mb-3">Produtos e serviços dessa propriedade</h2>
+<section class="section-block pt-3">
+    <div class="section-heading">
+        <span class="eyebrow">Catálogo da propriedade</span>
+        <h2>Produtos e serviços disponíveis</h2>
+        <p>
+            Confira os itens cadastrados por esta propriedade.
+        </p>
+    </div>
 
     <div class="row">
         @forelse($propriedade->produtosServicos->where('ativo', true) as $item)
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm">
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="rural-card h-100">
                     @if($item->imagem)
                         <img 
                             src="{{ asset('storage/' . $item->imagem) }}" 
-                            class="card-img-top"
-                            style="height: 200px; object-fit: cover;"
+                            class="rural-card-img"
                             alt="{{ $item->nome }}"
                         >
                     @else
-                        <div 
-                            class="bg-secondary-subtle d-flex align-items-center justify-content-center text-muted"
-                            style="height: 200px;"
-                        >
+                        <div class="rural-card-placeholder">
                             Sem imagem
                         </div>
                     @endif
 
-                    <div class="card-body">
+                    <div class="card-body p-4">
                         @if($item->tipo === 'produto')
-                            <span class="badge bg-success mb-2">Produto</span>
+                            <span class="badge-rural mb-3 d-inline-block">
+                                Produto
+                            </span>
                         @else
-                            <span class="badge bg-primary mb-2">Serviço</span>
+                            <span class="badge-service mb-3 d-inline-block">
+                                Serviço
+                            </span>
                         @endif
 
-                        <h5>{{ $item->nome }}</h5>
+                        <h5 class="fw-bold">
+                            {{ $item->nome }}
+                        </h5>
 
-                        <p class="text-muted mb-1">
+                        <p class="text-muted small">
                             {{ $item->categoria->nome ?? 'Sem categoria' }}
                         </p>
 
-                        <p>
-                            {{ \Illuminate\Support\Str::limit($item->descricao, 100) }}
+                        <p class="text-muted">
+                            {{ \Illuminate\Support\Str::limit($item->descricao, 110) }}
                         </p>
 
                         @if($item->preco_estimado)
                             <p class="fw-bold mb-1">
                                 R$ {{ number_format($item->preco_estimado, 2, ',', '.') }}
+
                                 @if($item->unidade)
                                     / {{ $item->unidade }}
                                 @endif
@@ -158,20 +161,20 @@
                         @endif
 
                         @if($item->disponibilidade)
-                            <p class="text-muted mb-0">
+                            <small class="text-muted">
                                 {{ $item->disponibilidade }}
-                            </p>
+                            </small>
                         @endif
                     </div>
                 </div>
             </div>
         @empty
             <div class="col-12">
-                <div class="alert alert-warning">
+                <div class="alert alert-warning rounded-4">
                     Esta propriedade ainda não possui produtos ou serviços cadastrados.
                 </div>
             </div>
         @endforelse
     </div>
-</div>
+</section>
 @endsection

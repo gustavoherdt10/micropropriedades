@@ -3,19 +3,26 @@
 @section('title', 'Propriedades Rurais e Artesanais')
 
 @section('content')
-<div class="mb-4">
-    <h1>Propriedades Rurais e Artesanais</h1>
-    <p class="text-muted">
-        Conheça pequenas propriedades, produtores rurais e negócios artesanais de Ituporanga e região.
-    </p>
-</div>
+<section 
+    class="page-hero" 
+    style="--page-bg: url('{{ asset('img/hero-rural.jpg') }}');"
+>
+    <div class="container">
+        <h1>Propriedades rurais e artesanais</h1>
 
-<div class="card shadow-sm mb-4">
-    <div class="card-body">
+        <p>
+            Conheça pequenas propriedades, produtores rurais e negócios artesanais de Ituporanga
+            e municípios da região.
+        </p>
+    </div>
+</section>
+
+<div class="filter-card card shadow-sm mb-5">
+    <div class="card-body p-4">
         <form action="{{ route('public.propriedades') }}" method="GET">
-            <div class="row">
-                <div class="col-md-5 mb-3">
-                    <label class="form-label">Buscar</label>
+            <div class="row g-3 align-items-end">
+                <div class="col-md-5">
+                    <label class="form-label fw-bold">Buscar propriedade</label>
                     <input 
                         type="text" 
                         name="busca" 
@@ -25,8 +32,8 @@
                     >
                 </div>
 
-                <div class="col-md-5 mb-3">
-                    <label class="form-label">Cidade</label>
+                <div class="col-md-5">
+                    <label class="form-label fw-bold">Cidade</label>
                     <input 
                         type="text" 
                         name="cidade" 
@@ -36,61 +43,70 @@
                     >
                 </div>
 
-                <div class="col-md-2 mb-3 d-flex align-items-end">
-                    <button type="submit" class="btn btn-success w-100">
-                        Filtrar
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-rural w-100">
+                        Buscar
                     </button>
                 </div>
             </div>
 
             @if(($busca ?? null) || ($cidade ?? null))
-                <a href="{{ route('public.propriedades') }}" class="btn btn-outline-secondary btn-sm">
-                    Limpar filtros
-                </a>
+                <div class="mt-3">
+                    <a href="{{ route('public.propriedades') }}" class="btn btn-outline-secondary btn-sm rounded-pill">
+                        Limpar filtros
+                    </a>
+                </div>
             @endif
         </form>
     </div>
 </div>
 
+<div class="section-heading">
+    <span class="eyebrow">Resultados</span>
+    <h2>Propriedades encontradas</h2>
+    <p>
+        Veja os cadastros disponíveis na plataforma e acesse os detalhes de cada propriedade.
+    </p>
+</div>
+
 <div class="row">
     @forelse($propriedades as $propriedade)
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="rural-card h-100">
                 @if($propriedade->imagem)
                     <img 
                         src="{{ asset('storage/' . $propriedade->imagem) }}" 
-                        class="card-img-top"
-                        style="height: 220px; object-fit: cover;"
+                        class="rural-card-img"
                         alt="{{ $propriedade->nome }}"
                     >
                 @else
-                    <div 
-                        class="bg-secondary-subtle d-flex align-items-center justify-content-center text-muted"
-                        style="height: 220px;"
-                    >
+                    <div class="rural-card-placeholder">
                         Sem imagem
                     </div>
                 @endif
 
-                <div class="card-body">
-                    <h5 class="card-title">{{ $propriedade->nome }}</h5>
-
-                    <p class="text-muted mb-1">
+                <div class="card-body p-4">
+                    <span class="badge-rural mb-3 d-inline-block">
                         {{ $propriedade->cidade }}
-                        @if($propriedade->bairro)
-                            - {{ $propriedade->bairro }}
-                        @endif
-                    </p>
+                    </span>
 
-                    <p class="card-text">
+                    <h5 class="fw-bold">
+                        {{ $propriedade->nome }}
+                    </h5>
+
+                    @if($propriedade->bairro)
+                        <p class="text-muted mb-2">
+                            {{ $propriedade->bairro }}
+                        </p>
+                    @endif
+
+                    <p class="text-muted">
                         {{ \Illuminate\Support\Str::limit($propriedade->descricao, 120) }}
                     </p>
-                </div>
 
-                <div class="card-footer bg-white">
                     <a 
                         href="{{ route('public.propriedades.show', $propriedade) }}" 
-                        class="btn btn-success btn-sm"
+                        class="btn btn-rural btn-sm"
                     >
                         Ver detalhes
                     </a>
@@ -99,14 +115,14 @@
         </div>
     @empty
         <div class="col-12">
-            <div class="alert alert-warning">
+            <div class="alert alert-warning rounded-4">
                 Nenhuma propriedade encontrada com os filtros informados.
             </div>
         </div>
     @endforelse
 </div>
 
-<div class="mt-3">
+<div class="mt-4">
     {{ $propriedades->withQueryString()->links() }}
 </div>
 @endsection

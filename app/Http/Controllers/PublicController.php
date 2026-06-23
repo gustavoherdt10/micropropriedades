@@ -10,20 +10,22 @@ use Illuminate\Http\Request;
 class PublicController extends Controller
 {
     public function home()
-    {
-        $propriedades = Propriedade::where('ativo', true)
-            ->latest()
-            ->take(6)
-            ->get();
+{
+    $categorias = Categoria::orderBy('nome')->get();
 
-        $produtos = ProdutoServico::with(['propriedade', 'categoria'])
-            ->where('ativo', true)
-            ->latest()
-            ->take(8)
-            ->get();
+    $propriedades = Propriedade::where('ativo', true)
+        ->latest()
+        ->take(6)
+        ->get();
 
-        return view('public.home', compact('propriedades', 'produtos'));
-    }
+    $produtos = ProdutoServico::with(['propriedade', 'categoria'])
+        ->where('ativo', true)
+        ->latest()
+        ->take(8)
+        ->get();
+
+    return view('public.home', compact('categorias', 'propriedades', 'produtos'));
+}
 
     public function propriedades(Request $request)
     {
